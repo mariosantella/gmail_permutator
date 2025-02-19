@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        input, button, textarea { display: block; margin: 10px 0; width: 100%; }
+        textarea { height: 200px; }
+    </style>
+</head>
+<body>
+    <h2>Email Generator</h2>
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName">
+    
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName">
+    
+    <label for="year">Year of Birth (2 or 4 digits, optional):</label>
+    <input type="text" id="year">
+    
+    <label for="domain">Domain:</label>
+    <input type="text" id="domain" value="gmail.com">
+    
+    <button onclick="generateEmails()">Generate Emails</button>
+    
+    <label for="output">Results:</label>
+    <textarea id="output" readonly></textarea>
+    
+    <p id="emailLink"></p>
+    
+    <script>
+        function generateEmails() {
+            let firstName = document.getElementById("firstName").value.trim().toLowerCase();
+            let lastName = document.getElementById("lastName").value.trim().toLowerCase();
+            let year = document.getElementById("year").value.trim();
+            let domain = document.getElementById("domain").value.trim();
+            let fi = firstName.charAt(0);
+            let yy = year ? year.slice(-2) : "";
+            let patterns = new Set();
+            
+            // Base name variations
+            patterns.add(`${firstName}${lastName}`);
+            patterns.add(`${firstName}.${lastName}`);
+            patterns.add(`${firstName}_${lastName}`);
+            
+            if (year) {
+                patterns.add(`${firstName}${lastName}${yy}`);
+                patterns.add(`${firstName}.${lastName}${yy}`);
+                patterns.add(`${firstName}_${lastName}${yy}`);
+                patterns.add(`${lastName}${fi}${yy}`);
+                patterns.add(`${fi}${lastName}${yy}`);
+            }
+            
+            for (let i = 0; i < 10; i++) {
+                patterns.add(`${fi}${lastName}${i}`);
+                patterns.add(`${firstName}${lastName}${i}`);
+            }
+            
+            let emailList = Array.from(patterns).slice(0, 200);
+            let emails = emailList.map(email => `${email}@${domain}`).join("\n");
+            document.getElementById("output").value = emails;
+            
+            let emailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${emailList.map(email => `${email}@${domain}`).join(",")}`;
+            document.getElementById("emailLink").innerHTML = `<a href="${emailHref}" target="_blank">Open Gmail with generated emails</a>`;
+        }
+    </script>
+</body>
+</html>
