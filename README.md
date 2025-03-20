@@ -14,6 +14,10 @@ It works exceptionally well for investigating **Italian users (but not only)**, 
 3. Click **"Open Gmail with generated emails"**, and Gmail will open the list in **bulk mode**.
 4. In the Gmail compose window, you can **immediately identify active users** by checking the **avatar thumbnails** (users with a Google profile will display an image, while inactive emails will show a default avatar).
 
+![Example of generated email permutations](gmailperm1.png)
+
+![Checking active accounts in Gmail](gmailperm2.png)
+
 ## Features
 ✅ Generates realistic email patterns based on real-world conventions.  
 ✅ Supports bulk checking of emails in Gmail with **one click**.  
